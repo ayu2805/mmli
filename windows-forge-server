@@ -1,0 +1,10 @@
+$ProgressPreference = 'SilentlyContinue'
+$url = "https://files.minecraftforge.net/net/minecraftforge/forge/"
+Write-Host "Downloading source code from $url..."
+$htmlContent = Invoke-WebRequest -Uri $url -UseBasicP -ErrorAction Stop
+$targetUrl = ($htmlContent.Content -match 'https://adfoc.us/serve/sitelinks/\?id=271228&url=([^"]*)') | Out-Null
+$targetUrl = $matches[1]
+Invoke-WebRequest -Uri $targetUrl -OutFile "forge-server.jar"
+Invoke-Expression "java -Xmx4G -jar forge-server.jar --installServer"
+Remove-Item "forge-server.jar", "forge-server.jar.log" -ErrorAction SilentlyContinue
+Invoke-Expression "./run.bat --initSettings"
