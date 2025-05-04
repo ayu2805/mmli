@@ -5,7 +5,7 @@ $htmlContent = Invoke-WebRequest -Uri $url -UseBasicParsing -ErrorAction Stop
 $targetUrl = ($htmlContent.Content -match 'https://adfoc.us/serve/sitelinks/\?id=271228&url=([^"]*)') | Out-Null
 $targetUrl = $matches[1]
 Invoke-WebRequest -Uri $targetUrl -OutFile "forge.jar"
-Invoke-Expression "java -jar forge.jar --installClient"
+Invoke-Expression "java -jar forge.jar --installClient $env:APPDATA\.minecraft"
 Invoke-Expression "java -jar forge.jar --installServer"
 Remove-Item "forge.jar", "forge.jar.log" -ErrorAction SilentlyContinue
 Invoke-Expression "./run.bat --initSettings"
