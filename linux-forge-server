@@ -9,7 +9,7 @@ targetUrl=$(curl -s "$url" | \
             head -n 1 | \
             sed 's|https://adfoc.us/serve/sitelinks/?id=271228&url=||')
 curl -o "forge.jar" "$targetUrl"
-java -jar forge.jar --installClient ~/.minecraft
+//java -jar forge.jar --installClient ~/.minecraft
 java -jar forge.jar --installServer
 rm forge.jar forge-server.jar.log
 ./run.sh --initSettings
