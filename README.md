@@ -2,10 +2,10 @@
 
 **For Windows:**
 ```
-irm https://raw.githubusercontent.com/ayu2805/forge-server/main/windows-forge | iex
+irm https://raw.githubusercontent.com/ayu2805/forge-server/main/windows-forge-server.ps1 | iex
 ```
 
 **For Linux:**
 ```
-bash -c "$(curl -Ss https://raw.githubusercontent.com/ayu2805/forge-server/main/linux-forge)"
+bash -c "$(curl -Ss https://raw.githubusercontent.com/ayu2805/forge-server/main/linux-forge-server.sh)"
 ```
