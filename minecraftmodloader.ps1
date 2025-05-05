@@ -62,7 +62,7 @@ do {
   $choice = Read-Host "Enter your choice "
 
   switch ($choice) {
-    '0' {Write-Host "Exiting the menu. Goodbye!"; break}
+    '0' {Write-Host "Exiting the menu. Goodbye!"; return}
     '1' {Install-Forge}
     '2' {Install-Fabric}
     default {Write-Host "Invalid choice. Please try again."}
