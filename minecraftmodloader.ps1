@@ -2,7 +2,7 @@ $ProgressPreference = 'SilentlyContinue'
 
 function Check-Java {
   try {
-  & java --version
+  & java --version 2>$null
   return $true
   }
   catch {
