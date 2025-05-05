@@ -35,10 +35,11 @@ function Install-Forge {
       Set-Location -Path "forge-server"
     }
     & java -jar forge-installer.jar --installServer
+    ./run.bat --initSettings
+    Remove-Item "forge-installer.jar", "forge-installer.jar.log" -ErrorAction SilentlyContinue
     Set-Location -Path ..
   }
   Remove-Item "forge-installer.jar", "forge-installer.jar.log" -ErrorAction SilentlyContinue
-  Invoke-Expression "./run.bat --initSettings"
 }
 
 function Install-Fabric {
@@ -66,8 +67,7 @@ function Install-Fabric {
     Remove-Item "fabric-installer.jar" -ErrorAction SilentlyContinue
     Set-Location -Path ..
   }
-  & java -jar .\fabric-installer.jar server -downloadMinecraft
-  & java -jar .\fabric-server-launch.jar --initSettings
+
   Remove-Item "fabric-installer.jar" -ErrorAction SilentlyContinue
 }
 
