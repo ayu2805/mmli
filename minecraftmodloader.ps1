@@ -21,12 +21,14 @@ function Install-Forge {
   $targetUrl = ($htmlContent.Content -match 'https://adfoc.us/serve/sitelinks/\?id=271228&url=([^"]*)') | Out-Null
   $targetUrl = $matches[1]
   Invoke-WebRequest -Uri $targetUrl -OutFile "forge-installer.jar"
+  
   $confirmRegistry = Read-Host "Do you want to install Forge Client? (y/N)"
   if ($confirmRegistry -match '^(yes|y)$') {
     if (Test-Path -Path $env:APPDATA\.minecraft -PathType Container) {
       & java -jar forge.jar --installClient $env:APPDATA\.minecraft
     }
   }
+  
   $confirmRegistry = Read-Host "Do you want to install Forge Server? (y/N)"
   if ($confirmRegistry -match '^(yes|y)$') {
     if ($(Get-Location).Path -notlike "*\forge-server") {
@@ -39,6 +41,7 @@ function Install-Forge {
     Remove-Item "forge-installer.jar", "forge-installer.jar.log" -ErrorAction SilentlyContinue
     Set-Location -Path ..
   }
+  
   Remove-Item "forge-installer.jar", "forge-installer.jar.log" -ErrorAction SilentlyContinue
 }
 
@@ -49,12 +52,14 @@ function Install-Fabric {
   $latestVersion = $xml.metadata.versioning.latest
   $jarUrl = "$baseJarUrl/$latestVersion/fabric-installer-$latestVersion.jar"
   Invoke-WebRequest -Uri $jarUrl -OutFile "fabric-installer.jar" -UseBasicParsing -ErrorAction Stop
+  
   $confirmRegistry = Read-Host "Do you want to install Fabric Client? (y/N)"
   if ($confirmRegistry -match '^(yes|y)$') {
     if (Test-Path -Path $env:APPDATA\.minecraft -PathType Container) {
       & java -jar .\fabric-installer.jar client
     }
   }
+  
   $confirmRegistry = Read-Host "Do you want to install Fabric Server? (y/N)"
   if ($confirmRegistry -match '^(yes|y)$') {
     if ($(Get-Location).Path -notlike "*\fabric-server") {
