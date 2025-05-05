@@ -16,6 +16,10 @@ if (-not (Check-Java)) {
 }
 
 function Install-Forge {
+  if ($(Get-Location).Path -notlike "*\forge-server") {
+    New-Item -Path "forge-server" -ItemType Directory -Force
+    Set-Location -Path "forge-server"
+  }
   $url = "https://files.minecraftforge.net/net/minecraftforge/forge/"
   $htmlContent = Invoke-WebRequest -Uri $url -UseBasicParsing -ErrorAction Stop
   $targetUrl = ($htmlContent.Content -match 'https://adfoc.us/serve/sitelinks/\?id=271228&url=([^"]*)') | Out-Null
@@ -27,9 +31,14 @@ function Install-Forge {
   Invoke-Expression "java -jar forge.jar --installServer"
   Remove-Item "forge.jar", "forge.jar.log" -ErrorAction SilentlyContinue
   Invoke-Expression "./run.bat --initSettings"
+  Set-Location -Path ..
 }
 
 function Install-Fabric {
+  if ($(Get-Location).Path -notlike "*\fabric-server") {
+    New-Item -Path "fabric-server" -ItemType Directory -Force
+    Set-Location -Path "fabric-server"
+  }
   $metadataUrl = "https://maven.fabricmc.net/net/fabricmc/fabric-installer/maven-metadata.xml"
   $baseJarUrl = "https://maven.fabricmc.net/net/fabricmc/fabric-installer"
   $xml = [xml](Invoke-WebRequest -Uri $metadataUrl -UseBasicParsing -ErrorAction Stop).Content
@@ -42,6 +51,7 @@ function Install-Fabric {
   Invoke-Expression "java -jar .\fabric-installer.jar server -downloadMinecraft"
   Invoke-Expression "java -jar .\fabric-server-launch.jar --initSettings"
   Remove-Item "fabric-installer.jar" -ErrorAction SilentlyContinue
+  Set-Location -Path ..
 }
 
 do {
