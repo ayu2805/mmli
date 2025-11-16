@@ -25,7 +25,7 @@ function Install-Forge {
   $confirmRegistry = Read-Host "Do you want to install Forge Client? (y/N)"
   if ($confirmRegistry -match '^(yes|y)$') {
     if (Test-Path -Path $env:APPDATA\.minecraft -PathType Container) {
-      & java -jar forge.jar --installClient $env:APPDATA\.minecraft
+      & java -jar forge-installer.jar --installClient $env:APPDATA\.minecraft
     }
   }
   
